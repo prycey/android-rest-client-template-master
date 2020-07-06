@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.twitter.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

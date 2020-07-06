@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.twitter;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.twitter.models.Tweet;
 
 import java.util.List;
 

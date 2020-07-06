@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.twitter;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.codepath.apps.restclienttemplate.models.SampleModel;
-import com.codepath.apps.restclienttemplate.models.SampleModelDao;
+import com.codepath.apps.twitter.models.SampleModel;
+import com.codepath.apps.twitter.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<twitterClient> {
@@ -21,12 +21,12 @@ public class LoginActivity extends OAuthLoginActionBarActivity<twitterClient> {
 
 		final SampleModel sampleModel = new SampleModel();
 		sampleModel.setName("CodePath");
-		//SampleModelDao tweetDao = ((twitterApp) getApplicationContext()).getMyDatabase().sampleModelDao();
+		sampleModelDao = ((twitterApp) getApplicationContext()).getMyDatabase().sampleModelDao();
 
 		AsyncTask.execute(new Runnable() {
 			@Override
 			public void run() {
-				//sampleModelDao.insertModel(sampleModel);
+				 sampleModelDao.insertModel(sampleModel);
 			}
 		});
 	}

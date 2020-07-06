@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.twitter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,9 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.twitter.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.github.scribejava.apis.TwitterApi;
 
 import org.json.JSONException;
 import org.parceler.Parcels;

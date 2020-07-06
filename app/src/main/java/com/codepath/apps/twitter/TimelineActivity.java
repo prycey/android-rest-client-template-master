@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.twitter;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.codepath.apps.restclienttemplate.models.SampleModelDao;
-import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.codepath.apps.restclienttemplate.models.TweetDao;
-import com.codepath.apps.restclienttemplate.models.User;
+import com.codepath.apps.twitter.models.Tweet;
+import com.codepath.apps.twitter.models.TweetDao;
+import com.codepath.apps.twitter.models.User;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -52,6 +51,17 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
 
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("TAG","from db");
+                List<TweetWithUser> tweetWithUsers = tweetDao.recentItems();
+                List<Tweet> tweetsFromDB = TweetWithUser.getTweetList(tweetWithUsers);
+                adapter.addAll(tweetsFromDB);
+            }
+        });
+        populateHomeTimeLine();
+
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -70,7 +80,6 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_red_light);
 
 
-        populateHomeTimeLine();
 
 
     }
@@ -144,9 +153,10 @@ public class TimelineActivity extends AppCompatActivity {
                     AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
-                           // List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsfromnet);
-                           // tweetDao.insertModel(tweetsfromnet.toArray(new User[0]));
-                           // tweetDao.insertModel(tweetsfromnet.toArray(new Tweet[0]));
+                            List<User> usersFromNetwork = User.fromJsonTweetArray(tweetsfromnet);
+                            Log.i("TAG", "Saving data into database");
+                       tweetDao.insertModel(usersFromNetwork.toArray(new User[0]));
+                       tweetDao.insertModel(tweetsfromnet.toArray(new Tweet[0]));
                         }
                     });
                 } catch (JSONException e) {
